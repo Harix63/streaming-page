@@ -4,201 +4,178 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Deine Streaming-Links</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5a2a83">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       font-family: Arial, sans-serif;
-      background-image: url('https://sdmntprnortheu.oaiusercontent.com/files/00000000-efe8-61f4-a894-2fe6626b0176/raw?se=2025-06-15T15%3A57%3A33Z&sp=r&sv=2024-08-04&sr=b&scid=ebf02cfb-1bff-5d06-be7b-c1dac0a952fa&skoid=b928fb90-500a-412f-a661-1ece57a7c318&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-15T07%3A05%3A05Z&ske=2025-06-16T07%3A05%3A05Z&sks=b&skv=2024-08-04&sig=HJ84%2BrGNPN4skobFMtbwo/fKLH4Ab2XRVjCHcxWzEbY%3D');
-      background-size: 75%;
-      background-position: center top;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-color: #5a2a83;
-      color: white;
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      position: relative;
+      transition: background 0.3s, color 0.3s;
     }
-
-    .main-container {
+    :root {
+      --bg-color: #5a2a83;
+      --text-color: white;
+      --box-bg: #3b1e5a;
+      --box-hover: #552c8f;
+    }
+    .light {
+      --bg-color: #f4f4f4;
+      --text-color: #333;
+      --box-bg: #ddd;
+      --box-hover: #ccc;
+    }
+    .header {
+      width: 100%;
+      padding: 20px;
+      background: transparent;
       display: flex;
       justify-content: space-between;
-      width: 100%;
-      padding: 0 240px;
-      margin-top: 320px;
+      align-items: center;
     }
-
-    .column {
+    .header img {
+      height: 40px;
+    }
+    .controls {
       display: flex;
-      flex-direction: column;
-      gap: 30px;
+      gap: 10px;
     }
-
-    .row {
+    .controls button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .search {
+      margin: 20px;
+    }
+    .search input {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 250px;
+    }
+    .main-container {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 30px;
+      max-width: 900px;
     }
-
     .link-box {
-      background: #3b1e5a;
+      background: var(--box-bg);
       border-radius: 8px;
       padding: 15px;
       width: 160px;
       height: 160px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s;
       text-decoration: none;
-      color: white;
+      color: inherit;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
-
     .link-box:hover {
       transform: scale(1.05);
-      background: #552c8f;
+      background: var(--box-hover);
     }
-
     .link-box img {
       width: 60px;
       height: 60px;
       margin-bottom: 10px;
     }
-
-    .footer-left, .footer-right, .footer-center {
-      position: absolute;
-      bottom: 30px;
+    .footer {
+      margin-top: 40px;
       display: flex;
-      align-items: center;
-    }
-
-    .footer-left {
-      left: 30px;
-    }
-
-    .footer-right {
-      right: 30px;
       gap: 15px;
     }
-
-    .footer-center {
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 16px;
-      opacity: 0.8;
-    }
-
-    .footer-left a img,
-    .footer-right a img {
+    .footer img {
       width: 30px;
       height: auto;
       filter: brightness(0) invert(1);
     }
-
     @media (max-width: 800px) {
-      .main-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-        padding: 0 20px;
+      .link-box {
+        width: 100px;
+        height: 100px;
       }
-
-      .row {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .footer-left,
-      .footer-right,
-      .footer-center {
-        position: static;
-        margin-top: 40px;
-        justify-content: center;
-        flex-wrap: wrap;
-        transform: none;
-        text-align: center;
+      .link-box img {
+        width: 40px;
+        height: 40px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="main-container">
-    <!-- Linke Seite -->
-    <div class="column">
-      <div class="row">
-        <a href="https://www.netflix.com" class="link-box" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo" />
-          Netflix
-        </a>
-        <a href="https://www.disneyplus.com" class="link-box" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney+ Logo" />
-          Disney+
-        </a>
-      </div>
-      <div class="row">
-        <a href="https://www.primevideo.com" class="link-box" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png" alt="Prime Video Logo" />
-          Prime Video
-        </a>
-        <a href="https://www.crunchyroll.com" class="link-box" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Crunchyroll_logo.svg/320px-Crunchyroll_logo.svg.png" alt="Crunchyroll Logo" />
-          Crunchyroll
-        </a>
-      </div>
-    </div>
-
-    <!-- Rechte Seite -->
-    <div class="column">
-      <div class="row">
-        <a href="https://bs.to" class="link-box" target="_blank">
-          <img src="https://bs.to/favicon.ico" alt="BS.to Logo" />
-          BS.to
-        </a>
-        <a href="https://megakino.jetzt" class="link-box" target="_blank">
-          <img src="https://megakino.jetzt/favicon.ico" alt="Megakino Logo" />
-          Megakino
-        </a>
-      </div>
-      <div class="row">
-        <a href="https://kinoger.com" class="link-box" target="_blank">
-          <img src="https://kinoger.com/favicon.ico" alt="Kinoger Logo" />
-          Kinoger
-        </a>
-        <a href="https://streamkiste.us/" class="link-box" target="_blank">
-          <img src="https://streamkiste.us/favicon.ico" alt="StreamKiste Logo" />
-          StreamKiste
-        </a>
-      </div>
+  <div class="header">
+    <img src="https://www.twitch.tv/favicon.ico" alt="Logo" />
+    <div class="controls">
+      <button onclick="toggleTheme()">🌓</button>
+      <button onclick="toggleLanguage()">🌐 DE/EN</button>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer-left">
-    <a href="https://www.spotify.com" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify Logo" />
-    </a>
+  <div class="search">
+    <input type="text" id="searchInput" onkeyup="searchLinks()" placeholder="Suchen...">
   </div>
 
-  <div class="footer-center">
-    Folg mir gern auf Twitch
+  <div class="main-container" id="linkContainer">
+    <a href="https://www.netflix.com" class="link-box"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" />Netflix</a>
+    <a href="https://www.disneyplus.com" class="link-box"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" />Disney+</a>
+    <a href="https://www.primevideo.com" class="link-box"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png" />Prime Video</a>
+    <a href="https://www.crunchyroll.com" class="link-box"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Crunchyroll_logo.svg/320px-Crunchyroll_logo.svg.png" />Crunchyroll</a>
+    <a href="https://bs.to" class="link-box"><img src="https://bs.to/favicon.ico" />BS.to</a>
+    <a href="https://megakino.jetzt" class="link-box"><img src="https://megakino.jetzt/favicon.ico" />Megakino</a>
+    <a href="https://kinoger.com" class="link-box"><img src="https://kinoger.com/favicon.ico" />Kinoger</a>
+    <a href="https://streamkiste.us/" class="link-box"><img src="https://streamkiste.us/favicon.ico" />StreamKiste</a>
+    <a href="https://aniworld.to" class="link-box"><img src="https://aniworld.to/favicon.ico" />Aniworld</a>
   </div>
 
-  <div class="footer-right">
-    <a href="https://www.twitch.tv/harix63" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111615.png" alt="Twitch Logo" />
-    </a>
-    <a href="https://discord.gg/a6EN6vfKCe" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord Logo" />
-    </a>
+  <div class="footer">
+    <a href="https://www.spotify.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" /></a>
+    <a href="https://www.twitch.tv/harix63" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111615.png" /></a>
+    <a href="https://discord.gg/a6EN6vfKCe" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" /></a>
   </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+    }
+
+    let isGerman = true;
+    function toggleLanguage() {
+      const links = document.querySelectorAll('.link-box');
+      isGerman = !isGerman;
+      const de = ["Netflix", "Disney+", "Prime Video", "Crunchyroll", "BS.to", "Megakino", "Kinoger", "StreamKiste", "Aniworld"];
+      const en = ["Netflix", "Disney+", "Prime Video", "Crunchyroll", "BS.to", "Megakino", "Kinoger", "StreamKiste", "Aniworld"];
+      links.forEach((link, i) => link.childNodes[1].nodeValue = isGerman ? de[i] : en[i]);
+      document.getElementById("searchInput").placeholder = isGerman ? "Suchen..." : "Search...";
+    }
+
+    function searchLinks() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const links = document.querySelectorAll(".link-box");
+      links.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        link.style.display = text.includes(input) ? "flex" : "none";
+      });
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
 </body>
 </html>
